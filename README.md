@@ -1,4 +1,6 @@
-<h1 align="center">Galois Autocompleter</h1>
+
+<h1 align="center"><img src="img/logo.png" alt="Galois Autocompleter"/><p>Galois Autocompleter</p></h1>
+
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://twitter.com/iedmrc">
@@ -8,11 +10,11 @@
 
 > An autocompleter for code editors based on [OpenAI GPT-2](https://github.com/openai/gpt-2).
 
-### 🏠 [Homepage](usegalois.com)
+### 🏠 [Homepage](https://usegalois.com)
 
-**Galois** is an auto code completer for code editors (or any text editor) based on [OpenAI GPT-2](https://github.com/openai/gpt-2). It is trained (finetuned) on a curated list of approximately 45K Python (~470MB) files gathered from the Github. It is now just works properly on Python but not bad at other languages (thanks to GPT-2's power). 
+**Galois** is an auto code completer for code editors (or any text editor) based on [OpenAI GPT-2](https://github.com/openai/gpt-2). It is trained (finetuned) on a curated list of approximately 45K Python (~470MB) files gathered from the Github. Currently, it just works properly on Python but not bad at other languages (thanks to GPT-2's power). 
 
-This repository now contains the very first release of the **Galois** project. With this project, I aim to create a **Deep Learning based autocompleter** such that anyone can run it on their own computer easily. Thus, coding will be more easier and fun!
+This repository now contains the very first release of the **Galois Project**. With this project, I aim to create a **Deep Learning Based Autocompleter** such that anyone can run it on their own computer easily. Thus, coding will be more easier and fun!
 
 ![Galois demo GIF](img/python1.gif)
 ## Installation
@@ -21,21 +23,39 @@ This repository now contains the very first release of the **Galois** project. W
 Either clone the repository and build the image from docker file or directly run the following command:
 
 ```sh
-docker run --rm -dit -p 3030:3030 iedmrc/galois-autocompleter
+docker run --rm -dit -p 3030:3030 iedmrc/galois-autocompleter:latest-gpu
+```
+P.S: CPU image is not available on the *Docker Hub* at the moment so if you want to run it on CPU rather than GPU, clone the repository and build the image as follows:
+
+```sh
+docker build --build-arg TENSORFLOW_VERSION=1.14.0-py3 -t iedmrc/galois-autocompleter:latest .
 ```
 
 ### Without Docker
 
-Clone the repository, download the latest model from releases tab and uncompress it into the directory. Then, run the following commands:
+Clone the repository:
+```sh
+git clone https://github.com/iedmrc/galois-autocompleter
+```
+
+Download the latest model from releases and uncompress it into the directory:
+```sh
+curl -SL https://github.com/iedmrc/galois-autocompleter/releases/latest/download/model.tar.xz | tar -xJC ./galois-autocompleter
+
+```
+Install dependencies:
 ```sh
 pip3 install -r requirements.txt
 ```
+P.S.: Be sure that you have tensorflow version >= 1.13
+
+Run the autocompleter:
 ```sh
 python3 main.py
 ```
 
 ## Usage
-Currently, there is no extensions for code editors. You can use it through HTTP. When you run the `main.py`, it will serve an HTTP (flask) server. Then you can easily make an POST request to the http://localhost:3030/ with the some `JSON` body like the following:
+Currently, there are no extensions for code editors. You can use it through HTTP. When you run the `main.py`, it will serve an HTTP (flask) server. Then you can easily make a POST request to the http://localhost:3030/ with the some `JSON` body like the following:
 
 ```sh
 {text: "your python code goes here"}
